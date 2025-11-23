@@ -100,6 +100,100 @@ input {
     border-color: var(--col-400);
     outline: none;
   }
+
+   form {
+    display: grid;
+    max-width: ${pxTorem(800)};
+    width: 100%;
+    border-radius: var(--border-radius);
+    gap: ${pxTorem(32)};
+    background-color: var(--col-100);
+    box-lines: ${pxTorem(6)} ${pxTorem(6)} ${pxTorem(10)} rgba(0, 0, 0, 0.1);
+    padding: ${pxTorem(40)} ${pxTorem(16)};
+
+    div {
+      position: relative;
+      width: 100%;
+
+      .password {
+        padding-right: ${pxTorem(50)};
+      }
+      .error {
+        position: absolute;
+        color: var(--col-300);
+        bottom: 0;
+        right: 0;
+        transform: translateY(100%);
+        font-size: ${pxTorem(11)};
+      }
+
+      .eye {
+        color: grey;
+        font-size: ${pxTorem(32)};
+        position: absolute;
+        right: 8px;
+        bottom: 0;
+      }
+    }
+
+    fieldset {
+      border: none;
+      display: grid;
+      gap: ${pxTorem(24)};
+    }
+
+    .seperator {
+      p {
+        flex: 2;
+        flex-wrap: nowrap;
+        width: 100%;
+      }
+      div {
+        flex: 1;
+        height: 1px;
+        border-color: grey;
+        border: solid 1px;
+        opacity: 0.6;
+      }
+    }
+
+    .google {
+      padding: ${pxTorem(16)};
+      border-radius: var(--border-radius);
+      border: grey 1px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: ${pxTorem(10)};
+      font-weight: bold;
+      transition: all ease 0.5s;
+      color: grey;
+
+      svg {
+        font-size: ${pxTorem(24)};
+      }
+
+      &:hover {
+        background-color: grey;
+        color: var(--col-100);
+      }
+    }
+
+    > div {
+      text-align: center;
+      h1 {
+        margin-bottom: ${pxTorem(16)};
+      }
+      p {
+        font-weight: var(--bold);
+        color: grey;
+        a {
+          color: var(--col-400);
+        }
+      }
+    }
+  }
 `;
 
 export default GlobalStyle;

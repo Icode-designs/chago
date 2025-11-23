@@ -3,7 +3,8 @@ import { RootState } from "@/store/store";
 import { CartContainer } from "@/styles/components/header";
 import Link from "next/link";
 import React from "react";
-import { FaOpencart } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
+
 import { useSelector } from "react-redux";
 
 const Cart = () => {
@@ -15,7 +16,7 @@ const Cart = () => {
         <div className="amount">
           <p>{totalQty}</p>
         </div>
-        <FaOpencart size={24} color="var(--col-000)" />
+        <IoCartOutline size={24} color="var(--col-000)" />
       </CartContainer>
     </Link>
   );

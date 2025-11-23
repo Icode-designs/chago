@@ -3,7 +3,8 @@
 import { HeaderContainer, SearchResultsBox } from "@/styles/components/header";
 import { FlexBox, StyledSearchBar } from "@/styles/components/ui.Styles";
 import Link from "next/link";
-import { FaUserCircle } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
+
 import { FaAngleDown } from "react-icons/fa6";
 import { useCallback, useContext, useRef, useState } from "react";
 import Logo from "./Logo";
@@ -113,7 +114,7 @@ const Header = () => {
           {isTablet && (
             <FlexBox $gap={24}>
               <Link href="/user">
-                <FaUserCircle size={24} color="var(--col-000)" />
+                <FaRegUserCircle size={24} color="var(--col-000)" />
               </Link>
 
               <Cart />

@@ -1,8 +1,12 @@
 import Header from "@/components/Header";
 import MobileNav from "@/components/MobileNav";
+import UserLayoutWrapper from "@/components/UserLayoutWrapper";
+import UserSidebar from "@/components/UserSidebar";
 import ProductsContextProvider from "@/providers/productsProvider";
+import { FlexBox } from "@/styles/components/ui.Styles";
+import { UserContentContainer } from "@/styles/components/User.styles";
 import { fetchProducts } from "@/utils/fetchAllProducts";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function UserLayout({
@@ -21,7 +25,9 @@ export default async function UserLayout({
     <>
       <ProductsContextProvider initialProducts={products}>
         <Header />
-        {children}
+        <UserLayoutWrapper>
+          <UserContentContainer>{children}</UserContentContainer>
+        </UserLayoutWrapper>
         <MobileNav />
       </ProductsContextProvider>
     </>

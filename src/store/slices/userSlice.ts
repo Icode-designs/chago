@@ -1,6 +1,12 @@
 // userSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Address {
+  street?: string;
+  city?: string;
+  state?: string;
+}
+
 export interface UserData {
   firstName?: string;
   lastName?: string;
@@ -12,7 +18,7 @@ export interface UserData {
   createdAt?: string;
   updatedAt?: string;
   phoneNumber?: string | null;
-  address?: string;
+  address?: Address;
   favorites?: string[];
 }
 

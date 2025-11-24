@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { CustomButton, ProductCard } from "@/styles/components/ui.Styles";
 import PRODUCT from "@/types/productsType";
 import formatToNaira from "@/utils/formatPrice";
-import { numberToStars } from "@/utils/ratings";
+import { numberToStars, Reviews } from "@/utils/ratings";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
@@ -78,7 +78,7 @@ const Card: React.FC<CardProps> = ({ children, variant, product }) => {
             />
             <article>
               <p>{product?.title}</p>
-              <p>{numberToStars(product?.rating)}</p>
+              <p>{numberToStars(product?.rating as Reviews)}</p>
               <h3>{formatToNaira(product?.price as number)}</h3>
             </article>
           </Link>

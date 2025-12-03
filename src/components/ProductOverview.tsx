@@ -33,8 +33,9 @@ const ProductOverview = ({ product, activeImage, setActiveImage }: Props) => {
     id,
     price,
     url,
+    vendorId,
   }: Omit<CartItem, "quantity">) => {
-    dispatch(addToCart({ title, url, id, price, quantity: 1 }));
+    dispatch(addToCart({ title, url, id, price, quantity: 1, vendorId }));
   };
 
   const rating = extractRating(product as Product);
@@ -87,6 +88,7 @@ const ProductOverview = ({ product, activeImage, setActiveImage }: Props) => {
                   id: product.id as string,
                   price: Number(product.price),
                   url: product.images[0],
+                  vendorId: product.sellerId,
                 })
               }
             >

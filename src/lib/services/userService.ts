@@ -14,7 +14,7 @@ export interface CreateUserData {
   lastName?: string;
   email: string;
   displayName?: string;
-  role?: "customer";
+  role?: "customer" | "vendor" | "admin";
   photoURL?: string;
   phoneNumber?: string;
   address?: string;

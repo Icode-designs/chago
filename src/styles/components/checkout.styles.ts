@@ -28,6 +28,7 @@ export const StyledCheckoutField = styled.fieldset`
   border: none;
   height: fit-content;
   width: 100%;
+  text-align: left;
   div {
     width: 100%;
   }

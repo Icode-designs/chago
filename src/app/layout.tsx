@@ -19,9 +19,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "City Store | E-commerce",
+  title: "Chago | E-commerce",
   description: "Your one-stop shop for everything Electronics and Gadgets",
-  keywords: ["e-commerce", "electronics"],
+  keywords: ["e-commerce", "electronics", "used gadgets", "used electronics"],
   creator: "Osakwe Bonaventure Ifechukwu",
 };
 

@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaStore } from "react-icons/fa";
 
 import Cart from "./Cart";
+import { CiHome, CiShop, CiUser } from "react-icons/ci";
 
 const MobileNav = () => {
   return (
@@ -13,7 +14,7 @@ const MobileNav = () => {
       <ul>
         <li>
           <Link href="/">
-            <GrHomeRounded />
+            <CiHome />
           </Link>
         </li>
         <li>
@@ -21,12 +22,12 @@ const MobileNav = () => {
         </li>
         <li>
           <Link href={`/products/products-list/${"all-products"}`}>
-            <FaStore />
+            <CiShop />
           </Link>
         </li>
         <li>
           <Link href="/user">
-            <CgProfile />
+            <CiUser />
           </Link>
         </li>
       </ul>

@@ -23,6 +23,10 @@ export const HeaderContainer = styled.header<{ $navOpen?: boolean }>`
     padding: 0 ${pxTorem(16)};
     gap: ${pxTorem(16)};
 
+    .profile {
+      font-size: ${pxTorem(35)};
+    }
+
     .menu {
       > button {
         background: none;
@@ -55,6 +59,13 @@ export const HeaderContainer = styled.header<{ $navOpen?: boolean }>`
 
     nav {
       display: none;
+    }
+  }
+
+  svg {
+    &:nth-of-type(2) {
+      font-size: ${pxTorem(60)}!important;
+      color: red;
     }
   }
 

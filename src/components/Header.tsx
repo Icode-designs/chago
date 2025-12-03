@@ -19,6 +19,7 @@ import Cart from "./Cart";
 import { CATEGORIES } from "@/utils/imageImport";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { CiUser } from "react-icons/ci";
 
 interface SearchProcess {
   isTyping: boolean;
@@ -142,9 +143,9 @@ const Header = () => {
 
         <FlexBox $gap={32} className="menu">
           {isTablet && (
-            <FlexBox $gap={24}>
+            <FlexBox $gap={24} $alignItems="center">
               <Link href="/user">
-                <FaRegUserCircle size={24} color="var(--col-000)" />
+                <CiUser className="profile" />
               </Link>
 
               <Cart />

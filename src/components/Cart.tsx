@@ -3,6 +3,7 @@ import { RootState } from "@/store/store";
 import { CartContainer } from "@/styles/components/header";
 import Link from "next/link";
 import React from "react";
+import { CiShoppingCart } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 
 import { useSelector } from "react-redux";
@@ -16,7 +17,7 @@ const Cart = () => {
         <div className="amount">
           <p>{totalQty}</p>
         </div>
-        <IoCartOutline />
+        <CiShoppingCart />
       </CartContainer>
     </Link>
   );

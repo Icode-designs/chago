@@ -22,7 +22,7 @@ export const StyledMobileNav = styled.nav`
         gap: ${pxTorem(8)};
 
         svg {
-          font-size: ${pxTorem(32)};
+          font-size: ${pxTorem(35)};
         }
       }
     }

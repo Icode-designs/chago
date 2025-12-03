@@ -29,8 +29,9 @@ const CartCard = ({ item }: Props) => {
     id,
     price,
     url,
+    vendorId,
   }: Omit<CartItem, "quantity">) => {
-    dispatch(addToCart({ title, id, url, price, quantity: 1 }));
+    dispatch(addToCart({ title, id, url, price, quantity: 1, vendorId }));
   };
 
   return (
@@ -55,6 +56,7 @@ const CartCard = ({ item }: Props) => {
                 id: item.id,
                 price: item.price,
                 url: item.url,
+                vendorId: item.vendorId,
               })
             }
           >

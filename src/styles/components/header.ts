@@ -151,6 +151,12 @@ export const CartContainer = styled.div`
   height: ${pxTorem(55)};
   display: flex;
   align-items: center;
+
+  a {
+    svg {
+      font-size: ${pxTorem(32)};
+    }
+  }
   .amount {
     color: var(--col-000);
     position: absolute;

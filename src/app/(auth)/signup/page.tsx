@@ -1,5 +1,10 @@
 "use client";
-import { AuthMain, CustomButton, FlexBox } from "@/styles/components/ui.Styles";
+import {
+  AuthMain,
+  CustomButton,
+  FlexBox,
+  RedirectMessageBox,
+} from "@/styles/components/ui.Styles";
 import { registerUser, signInWithGoogle } from "@/utils/auth";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -10,6 +15,7 @@ import { getUserDocument } from "@/lib/services/userService";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { setUser } from "@/store/slices/userSlice";
+import Logo from "@/components/Logo";
 
 interface ERRORTYPE {
   emailErr?: string;
@@ -124,50 +130,64 @@ const Page = () => {
     }
   }
 
-  // async function handleGoogleSignup() {
-  //   setError({});
-  //   setLoading(true);
+  async function handleGoogleSignup() {
+    setError({});
+    setLoading(true);
 
-  //   try {
-  //     const user = await signInWithGoogle();
-  //     console.log("User signed up with Google:", user.uid);
+    try {
+      const user = await signInWithGoogle();
+      console.log("User signed up with Google:", user.uid);
 
-  //     // Get ID token
-  //     const idToken = await user.getIdToken();
+      // Fetch and set user data in Redux
+      const userData = await getUserDocument(user.uid);
+      dispatch(setUser(userData));
 
-  //     // Create session cookie
-  //     const response = await fetch("/api/auth/session", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ idToken }),
-  //     });
+      // Get ID token
+      const idToken = await user.getIdToken();
 
-  //     if (!response.ok) {
-  //       throw new Error("Failed to create session");
-  //     }
+      // Create session cookie
+      const response = await fetch("/api/auth/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
 
-  //     // Redirect to the original page or dashboard
-  //     router.push(redirectTo);
-  //     router.refresh();
-  //   } catch (error: unknown) {
-  //     console.error("Google signup error:", error);
+      if (!response.ok) {
+        throw new Error("Failed to create session");
+      }
 
-  //     if (
-  //       error instanceof FirebaseError &&
-  //       error.code === "auth/popup-closed-by-user"
-  //     ) {
-  //       setError({ generalErr: "Sign-up cancelled" });
-  //     } else {
-  //       setError({
-  //         generalErr: "Failed to sign up with Google. Please try again.",
-  //       });
-  //     }
+      // Redirect to the original page or dashboard
+      router.push(redirectTo);
+      router.refresh();
+    } catch (error: unknown) {
+      console.error("Google signup error:", error);
 
-  //     setLoading(false);
-  //   }
-  // }
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/popup-closed-by-user") {
+          setError({ generalErr: "Sign-up cancelled" });
+        } else if (
+          error.code === "auth/account-exists-with-different-credential"
+        ) {
+          setError({
+            generalErr:
+              "An account already exists with this email. Please login with your original method.",
+          });
+        } else {
+          setError({
+            generalErr: "Failed to sign up with Google. Please try again.",
+          });
+        }
+      } else {
+        setError({
+          generalErr: "Failed to sign up with Google. Please try again.",
+        });
+      }
+
+      setLoading(false);
+    }
+  }
 
   function toggleShowPassword() {
     setShowPassword((prev) => !prev);
@@ -175,6 +195,9 @@ const Page = () => {
 
   return (
     <AuthMain>
+      <FlexBox $width="100%" $justifyContent="center">
+        <Logo variant="black" />
+      </FlexBox>
       <form onSubmit={handleSubmit}>
         <div>
           <h1>signup</h1>
@@ -194,19 +217,9 @@ const Page = () => {
 
         {/* Show redirect message if coming from a protected page */}
         {searchParams.get("from") && (
-          <div
-            style={{
-              padding: "12px",
-              backgroundColor: "#EBF5FF",
-              border: "1px solid #60A5FA",
-              borderRadius: "8px",
-              marginBottom: "16px",
-              color: "#1E40AF",
-              fontSize: "14px",
-            }}
-          >
+          <RedirectMessageBox>
             Create an account to access that page
-          </div>
+          </RedirectMessageBox>
         )}
 
         {/* General error message */}
@@ -288,7 +301,7 @@ const Page = () => {
         <button
           className="google"
           type="button"
-          // onClick={handleGoogleSignup}
+          onClick={handleGoogleSignup}
           disabled={loading}
         >
           <FaGoogle /> <p>Google</p>

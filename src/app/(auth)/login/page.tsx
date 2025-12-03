@@ -1,10 +1,16 @@
 "use client";
 
+import Logo from "@/components/Logo";
 import { getUserDocument } from "@/lib/services/userService";
 import { setUser } from "@/store/slices/userSlice";
 import { AppDispatch } from "@/store/store";
-import { AuthMain, CustomButton, FlexBox } from "@/styles/components/ui.Styles";
-import { loginUser } from "@/utils/auth";
+import {
+  AuthMain,
+  CustomButton,
+  FlexBox,
+  RedirectMessageBox,
+} from "@/styles/components/ui.Styles";
+import { loginUser, signInWithGoogle } from "@/utils/auth";
 import { FirebaseError } from "firebase/app";
 
 import Link from "next/link";
@@ -84,9 +90,57 @@ const Page = () => {
       } else {
         setError({ generalErr: "Something went wrong. Try again." });
       }
+      setLoading(false);
     }
+  }
 
-    setLoading(false);
+  async function handleGoogleLogin() {
+    setError({});
+    setLoading(true);
+
+    try {
+      const user = await signInWithGoogle();
+      console.log("User logged in with Google:", user.uid);
+
+      // Fetch and set user data in Redux
+      const userData = await getUserDocument(user.uid);
+      dispatch(setUser(userData));
+
+      // Get ID token
+      const idToken = await user.getIdToken();
+
+      // Create session cookie
+      const response = await fetch("/api/auth/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create session");
+      }
+
+      // Redirect to the original page or dashboard
+      router.push(redirectTo);
+      router.refresh();
+    } catch (error: unknown) {
+      console.error("Google login error:", error);
+
+      if (
+        error instanceof FirebaseError &&
+        error.code === "auth/popup-closed-by-user"
+      ) {
+        setError({ generalErr: "Login cancelled" });
+      } else {
+        setError({
+          generalErr: "Failed to login with Google. Please try again.",
+        });
+      }
+
+      setLoading(false);
+    }
   }
 
   function toggleShowPassword() {
@@ -95,6 +149,9 @@ const Page = () => {
 
   return (
     <AuthMain>
+      <FlexBox $width="100%" $justifyContent="center">
+        <Logo variant="black" />
+      </FlexBox>
       <form onSubmit={handleSubmit}>
         <div>
           <h1>Login</h1>
@@ -111,6 +168,10 @@ const Page = () => {
             </Link>
           </p>
         </div>
+
+        {searchParams.get("from") && (
+          <RedirectMessageBox>Login to access that page</RedirectMessageBox>
+        )}
 
         {error.generalErr && <p className="error">{error.generalErr}</p>}
 
@@ -135,17 +196,26 @@ const Page = () => {
           </div>
         </fieldset>
 
-        <CustomButton $variant="extended" disabled={loading}>
+        <CustomButton $variant="extended" type="submit" disabled={loading}>
           {loading ? "Logging in..." : "login"}
         </CustomButton>
 
-        <FlexBox $justifyContent="center" className="seperator">
+        <FlexBox
+          $justifyContent="space-between"
+          $width="100%"
+          className="seperator"
+        >
           <div></div>
           <p>or continue with</p>
           <div></div>
         </FlexBox>
 
-        <button className="google" type="button" disabled={loading}>
+        <button
+          className="google"
+          type="button"
+          onClick={handleGoogleLogin}
+          disabled={loading}
+        >
           <FaGoogle /> <p>Google</p>
         </button>
       </form>

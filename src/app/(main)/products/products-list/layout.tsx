@@ -8,10 +8,10 @@ interface PROPS {
 
 const layout = ({ children }: PROPS) => {
   return (
-    <div>
+    <>
       <Filter />
       {children}
-    </div>
+    </>
   );
 };
 

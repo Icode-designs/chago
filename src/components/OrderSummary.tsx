@@ -8,15 +8,17 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const OrderSummary = () => {
-  const cartItems: CartItem[] = useSelector((state: RootState) => state.cart.items);
+  const cartItems: CartItem[] = useSelector(
+    (state: RootState) => state.cart.items
+  );
 
   const subTotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
 
-  const shiping = 60000;
-  const tax = 11000;
+  const shiping = 6000 * cartItems.length;
+  const tax = subTotal * 0.01;
   const grandTotal = shiping + tax + subTotal;
   return (
     <StyledOrderSum>

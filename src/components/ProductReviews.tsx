@@ -5,6 +5,7 @@ import { numberToStars } from "@/utils/ratings";
 import { FlexBox } from "@/styles/components/ui.Styles";
 
 const ProductReviews = ({ reviews }: { reviews: ReviewData[] }) => {
+  if (!reviews) return <p>This product has no review.</p>;
   return (
     <CustomerReviews>
       {reviews.map((rev, index) => (

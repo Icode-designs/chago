@@ -4,6 +4,7 @@ import StyledComponentsRegistry from "@/lib/registry";
 import GlobalStyle from "@/styles/global.styles";
 import Providers from "@/providers/ReduxProvider";
 import ClientWrapper from "@/components/CartSyncWrapper";
+import Script from "next/script";
 
 const italianno = Italianno({
   variable: "--font-italiano",
@@ -30,7 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${italianno.variable} ${poppins.variable}`}>
+      <head>
+        <Script
+          src="https://js.paystack.co/v1/inline.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body>
         <StyledComponentsRegistry>
           <Providers>

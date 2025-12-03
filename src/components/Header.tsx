@@ -1,19 +1,24 @@
 "use client";
 
 import { HeaderContainer, SearchResultsBox } from "@/styles/components/header";
-import { FlexBox, StyledSearchBar } from "@/styles/components/ui.Styles";
+import {
+  FlexBox,
+  StyledSearchBar,
+  AddedToCartBox,
+} from "@/styles/components/ui.Styles";
 import Link from "next/link";
 import { FaRegUserCircle } from "react-icons/fa";
 
 import { FaAngleDown } from "react-icons/fa6";
-import { useCallback, useContext, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState, useEffect } from "react";
 import Logo from "./Logo";
 import useMediaQuery from "@/hooks/useMedia";
-import { PRODUCTS_CONTEXT } from "@/providers/productsProvider";
 import PRODUCT from "@/types/productsType";
 import { FILTER_CONTEXT } from "@/providers/filterProvider";
 import Cart from "./Cart";
 import { CATEGORIES } from "@/utils/imageImport";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface SearchProcess {
   isTyping: boolean;
@@ -21,6 +26,16 @@ interface SearchProcess {
 }
 
 const Header = () => {
+  const [showMessage, setShowMessage] = useState(false);
+
+  // get actual quantity from Redux
+  const totalQty = useSelector((state: RootState) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  );
+
+  // store previous qty
+  const prevQtyRef = useRef(totalQty);
+
   const [navOpen, setNavOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
   const [searchProcess, setSearchProcess] = useState<SearchProcess>({
@@ -28,16 +43,29 @@ const Header = () => {
     result: undefined,
   });
   const inputRef = useRef<HTMLInputElement>(null);
-  const productsCtx = useContext(PRODUCTS_CONTEXT);
+  const products = useSelector((state: RootState) => state.products.products);
   const isTablet = useMediaQuery(768);
+
+  useEffect(() => {
+    if (totalQty > prevQtyRef.current) {
+      setShowMessage(true);
+      const timeout = setTimeout(() => setShowMessage(false), 1000);
+
+      prevQtyRef.current = totalQty; // update prev qty
+
+      return () => clearTimeout(timeout);
+    }
+
+    // if qty decreased, still update ref without showing message
+    prevQtyRef.current = totalQty;
+  }, [totalQty]);
 
   const filterCtx = useContext(FILTER_CONTEXT);
 
   const categories = Object.entries(CATEGORIES);
 
   const handleChange = useCallback(() => {
-    if (!productsCtx?.products) return;
-    const { products } = productsCtx;
+    if (!products) return;
     const searchKeyword = inputRef.current?.value.trim().toLowerCase() || "";
 
     if (!searchKeyword) {
@@ -51,7 +79,7 @@ const Header = () => {
       ) || [];
 
     setSearchProcess({ isTyping: true, result: searchResult });
-  }, [productsCtx]);
+  }, [products]);
 
   const handleBlur = useCallback(() => {
     setTimeout(() => {
@@ -59,7 +87,7 @@ const Header = () => {
     }, 300);
   }, []);
 
-  if (!productsCtx) {
+  if (!products) {
     return <p>Unable to load products context. Try refreshing the page.</p>;
   }
 
@@ -69,6 +97,8 @@ const Header = () => {
 
   return (
     <HeaderContainer $navOpen={navOpen}>
+      {showMessage && <AddedToCartBox>Product added to cart</AddedToCartBox>}
+
       <div>
         <Logo variant="black" />
         <nav>

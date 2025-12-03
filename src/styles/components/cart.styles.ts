@@ -35,6 +35,7 @@ export const StyledCardList = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
   gap: ${pxTorem(16)};
+  height: fit-content;
 `;
 
 export const StyledOrderSum = styled.div`
@@ -64,6 +65,7 @@ export const StyledCartWrapper = styled.div`
   gap: ${pxTorem(50)};
   padding: ${pxTorem(16)};
   grid-template-columns: 1fr;
+  height: fit-content;
 
   > div {
     display: grid;

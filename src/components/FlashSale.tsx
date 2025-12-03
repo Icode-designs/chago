@@ -2,16 +2,16 @@
 import { ProductSection, ProductsGrid } from "@/styles/components/ui.Styles";
 import Card from "./Card";
 import { useContext } from "react";
-import { PRODUCTS_CONTEXT } from "@/providers/productsProvider";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const FlashSale = () => {
-  const productsCtx = useContext(PRODUCTS_CONTEXT);
+  const products = useSelector((state: RootState) => state.products.products);
 
-  if (!productsCtx) {
-    return;
+  if (!products) {
+    return null;
   }
 
-  const { products } = productsCtx;
   const saleProducts = products?.filter((product, i) => i <= 7);
 
   return (

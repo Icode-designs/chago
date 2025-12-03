@@ -111,6 +111,12 @@ input, textarea {
     box-lines: ${pxTorem(6)} ${pxTorem(6)} ${pxTorem(10)} rgba(0, 0, 0, 0.1);
     padding: ${pxTorem(40)} ${pxTorem(16)};
 
+    >div{
+      &:nth-of-type(1){
+        text-align: center;
+      }
+    }
+
     div {
       position: relative;
       width: 100%;
@@ -181,7 +187,8 @@ input, textarea {
     }
 
     > div {
-      text-align: center;
+      text-align: left;
+   
       h1 {
         margin-bottom: ${pxTorem(16)};
       }

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const MainContainer = styled.main<{ $variant?: "secondary" }>`
   max-width: var(--max-width);
-  min-height: 100vh;
+  min-height: calc(100vh - ${pxTorem(82)});
   width: 100%;
   margin: var(--centered);
   margin-bottom: ${pxTorem(90)};
@@ -17,6 +17,7 @@ export const MainContainer = styled.main<{ $variant?: "secondary" }>`
   @media ${QUERY.DESKTOP} {
     margin-top: ${pxTorem(112)};
     padding: 0;
+    min-height: calc(100vh - ${pxTorem(112)});
   }
 
   ${({ $variant }) =>
@@ -288,6 +289,7 @@ export const AuthMain = styled.main`
   align-content: center;
   padding: ${pxTorem(16)};
   min-height: 100vh;
+  gap: ${pxTorem(40)};
   @keyframes entry {
     0% {
       opacity: 0;
@@ -297,20 +299,72 @@ export const AuthMain = styled.main`
     }
   }
 
+  form {
+    .seperator {
+      p {
+        flex: 1.55;
+        text-align: center;
+      }
+      div {
+        flex: 1;
+      }
+    }
+  }
+
   animation: entry ease-in-out 0.5s;
 
   @media ${QUERY.TABLET} {
     padding: ${pxTorem(24)};
 
     form {
+      max-width: 70%;
       .seperator {
         p {
-          flex: 1;
+          flex: 1.02;
         }
         div {
-          flex: 1.5;
+          flex: 1;
         }
       }
     }
   }
+`;
+
+export const GridColumn = styled.div<{
+  $align?: string;
+  $justify?: string;
+  $gap?: number;
+}>`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${({ $gap }) => pxTorem($gap as number) || pxTorem(16)};
+  align-content: ${({ $align }) => $align || "start"};
+  justify-items: ${({ $justify }) => $justify || "start"};
+  width: 100%;
+  height: fit-content;
+`;
+
+export const RedirectMessageBox = styled.div`
+  padding: ${pxTorem(12)};
+  background-color: #ebf5ff;
+  border: 1px solid #60a5fa;
+  border-radius: ${pxTorem(8)};
+  margin-bottom: ${pxTorem(16)};
+  color: #1e40af;
+  font-size: ${pxTorem(14)};
+  text-align: center;
+`;
+
+export const AddedToCartBox = styled.span`
+  background-color: var(--col-400);
+  padding: ${pxTorem(8)};
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  font-size: ${pxTorem(12)};
+  color: var(--col-100);
+  font-weight: bold;
+  top: 0;
+  left: 0;
+  z-index: 110;
 `;

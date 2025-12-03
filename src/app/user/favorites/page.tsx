@@ -1,20 +1,18 @@
 "use client";
 import Card from "@/components/Card";
-import { PRODUCTS_CONTEXT } from "@/providers/productsProvider";
 import { RootState } from "@/store/store";
 import { ProductsGrid } from "@/styles/components/ui.Styles";
 import { UserContent } from "@/styles/components/User.styles";
-import React, { useContext } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 const Page = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const productsCtx = useContext(PRODUCTS_CONTEXT);
 
-  if (!productsCtx) return null;
+  const products = useSelector((state: RootState) => state.products.products);
 
-  const favorites = productsCtx.products?.filter((product) =>
-    user?.favorites?.includes(product.id)
+  const favorites = products?.filter((product) =>
+    user?.favorites?.includes(product.id as string)
   );
   return (
     <UserContent>

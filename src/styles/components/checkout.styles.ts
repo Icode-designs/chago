@@ -24,8 +24,10 @@ export const StyledCheckoutField = styled.fieldset`
   gap: ${pxTorem(24)};
   background-color: var(--col-100);
   border-radius: var(--border-radius);
-  padding: ${pxTorem(24)} ${pxTorem(16)};
+  padding: 0;
   border: none;
+  height: fit-content;
+  width: 100%;
   div {
     width: 100%;
   }
@@ -41,4 +43,10 @@ export const StyledFieldGrid = styled.div<{ $gap: number }>`
   display: grid;
   grid-template-columns: 1fr;
   gap: ${({ $gap }) => pxTorem($gap)};
+  justify-items: left;
+  height: fit-content;
+  label {
+    width: 100%;
+    text-align: left;
+  }
 `;

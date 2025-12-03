@@ -1,22 +1,21 @@
 "use client";
-import { PRODUCTS_CONTEXT } from "@/providers/productsProvider";
 import { ProductSection, ProductsGrid } from "@/styles/components/ui.Styles";
-import React, { useContext } from "react";
+import React from "react";
 import Card from "./Card";
 import PRODUCT from "@/types/productsType";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface PROPS {
   product: PRODUCT;
 }
 
 const RelatedProducts = ({ product }: PROPS) => {
-  const productsCtx = useContext(PRODUCTS_CONTEXT);
+  const products = useSelector((state: RootState) => state.products.products);
 
-  if (!productsCtx) {
-    return;
+  if (!products) {
+    return null;
   }
-
-  const { products } = productsCtx;
   const relatedProducts = products?.filter(
     (item) => item.category === product.category && item.id !== product.id
   );

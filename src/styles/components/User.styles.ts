@@ -5,7 +5,7 @@ import QUERY from "../mediaBreakpoints";
 
 export const StyledSideBar = styled.div<{ $navOpen: boolean }>`
   position: fixed;
-  background-color: var(--col-400);
+  background-color: var(--col-000);
   height: ${({ $navOpen }) => ($navOpen ? pxTorem(300) : pxTorem(55))};
   width: ${({ $navOpen }) => ($navOpen ? pxTorem(250) : pxTorem(40))};
   margin-top: ${pxTorem(82)};
@@ -126,5 +126,104 @@ export const UserContentContainer = styled.section`
 
   @media ${QUERY.DESKTOP} {
     max-height: calc(100vh - ${pxTorem(112)});
+  }
+`;
+
+export const UserOrderList = styled.ol`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${pxTorem(16)};
+  width: 100%;
+`;
+
+export const StyledOrderCard = styled.li`
+  display: grid;
+  grid-template-areas: "id title title" "price qty status";
+  background-color: var(--col-100);
+  border-radius: var(--border-radius);
+  padding: ${pxTorem(18)};
+  width: 100%;
+  gap: ${pxTorem(24)};
+
+  h3 {
+    grid-area: id;
+    justify-self: start;
+    align-self: start;
+  }
+
+  p {
+    &:nth-of-type(1) {
+      grid-area: title;
+      justify-self: end;
+      align-self: start;
+    }
+    &:nth-of-type(2) {
+      grid-area: price;
+      justify-self: start;
+      align-self: end;
+    }
+    &:nth-of-type(3) {
+      grid-area: qty;
+      justify-self: center;
+      align-self: end;
+    }
+  }
+
+  .status {
+    grid-area: status;
+    justify-self: end;
+    align-self: end;
+    padding: ${pxTorem(10)};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    text-transform: capitalize;
+
+    &.pending {
+      background-color: #ffbe86ff;
+      color: orange;
+    }
+
+    &.transit {
+      background-color: #87cefa;
+      color: #00b7ffff;
+    }
+
+    &.recieved {
+      background-color: #90ee90;
+      color: #00ff00;
+    }
+    &.canceled {
+      background-color: #ff4c4cff;
+      color: var(--col-300);
+    }
+  }
+
+  @media ${QUERY.TABLET} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .status,
+    h3 {
+      justify-self: unset;
+      align-self: unset;
+    }
+
+    p {
+      &:nth-of-type(1) {
+        justify-self: unset;
+        align-self: unset;
+      }
+      &:nth-of-type(2) {
+        justify-self: unset;
+        align-self: unset;
+      }
+      &:nth-of-type(3) {
+        justify-self: unset;
+        align-self: unset;
+      }
+    }
   }
 `;

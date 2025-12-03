@@ -59,9 +59,7 @@ const UserSidebar = () => {
         <li>
           <NavLink href="/user/profile">Profile</NavLink>
         </li>
-        <li>
-          <NavLink href="/user/track-order">Track order</NavLink>
-        </li>
+
         <li>
           <NavLink href="/user/order-history">Order History</NavLink>
         </li>

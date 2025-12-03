@@ -2,15 +2,16 @@
 
 import Card from "@/components/Card";
 import { FILTER_CONTEXT } from "@/providers/filterProvider";
-import { PRODUCTS_CONTEXT } from "@/providers/productsProvider";
+import { RootState } from "@/store/store";
 import { StyledProductsList } from "@/styles/components/productsList";
 import {
   FlexBox,
   MainContainer,
   ProductsGrid,
 } from "@/styles/components/ui.Styles";
-import PRODUCT from "@/types/productsType";
-import React, { use, useContext, useMemo, useEffect, useState } from "react";
+import { extractRating, Reviews, sumRatings } from "@/utils/ratings";
+import React, { use, useContext, useMemo, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
   const resolvedParams = use(params);
@@ -18,74 +19,18 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
   const normalizedSlug = slug.replace(/-/g, " ");
 
   const filterCtx = useContext(FILTER_CONTEXT);
-  const productsCtx = useContext(PRODUCTS_CONTEXT);
+  const products = useSelector((state: RootState) => state.products.products);
 
-  const [products, setProducts] = useState<PRODUCT[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+  // Reset filters when slug changes
   useEffect(() => {
     filterCtx?.resetFilters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  useEffect(() => {
-    if (!productsCtx || !filterCtx) {
-      setIsLoading(true);
-      return;
-    }
-
-    const { filters } = filterCtx;
-    const allProducts = productsCtx.products || [];
-    let filteredProducts = [...allProducts];
-
-    // Filter by category
-    if (filters.categories.length > 0) {
-      filteredProducts = filteredProducts.filter((prod) =>
-        filters.categories.includes(prod.category.toLowerCase())
-      );
-    }
-
-    // Filter by price range
-    if (filters.minPrice) {
-      filteredProducts = filteredProducts.filter(
-        (prod) => prod.price >= Number(filters.minPrice)
-      );
-    }
-
-    if (filters.maxPrice) {
-      filteredProducts = filteredProducts.filter(
-        (prod) => prod.price <= Number(filters.maxPrice)
-      );
-    }
-
-    // Filter by rating
-    if (filters.rating.length > 0) {
-      filteredProducts = filteredProducts.filter((prod) => {
-        const prodRating = Math.round(Number(prod.rating));
-        if (Number.isNaN(prodRating)) return false;
-        return filters.rating.includes(prodRating);
-      });
-    }
-
-    // Filter by search term (now independent)
-    if (filters.searchTerm) {
-      filteredProducts = filteredProducts.filter((p) =>
-        [p.title, p.category].some((field) =>
-          field
-            .toLowerCase()
-            .includes(filters.searchTerm?.toLowerCase() as string)
-        )
-      );
-    }
-
-    setProducts(filteredProducts);
-    setIsLoading(false);
-  }, [filterCtx, productsCtx]);
-
-  // 🧠 Detect whether slug refers to a product ID or a category
+  // Detect whether slug refers to a product ID or a category
   const { productById, categoryMatch, pageTitle } = useMemo(() => {
     const productById = products.find(
-      (product) => product.id.toLowerCase() === slug
+      (product) => product.id?.toLowerCase() === slug
     );
 
     const categoryMatch = products.filter(
@@ -106,8 +51,8 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
     return { productById, categoryMatch, pageTitle };
   }, [products, slug, normalizedSlug]);
 
-  // 🪄 Smart Sorting Logic
-  const sortedProducts = useMemo(() => {
+  // 🪄 Get base products based on slug
+  const baseProducts = useMemo(() => {
     // Case 1️⃣: Slug matches a product ID
     if (productById) {
       const sameCategory = products.filter(
@@ -124,16 +69,68 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
       return categoryMatch;
     }
 
-    // Case 3️⃣: No direct match → show all or empty
+    // Case 3️⃣: "All products"
     if (normalizedSlug === "all products") {
       return products;
     }
 
+    // Case 4️⃣: No match
     return [];
   }, [products, productById, categoryMatch, normalizedSlug]);
 
-  // Loading state
-  if (isLoading) {
+  // Apply filters to base products
+  const filteredProducts = useMemo(() => {
+    if (!filterCtx) return baseProducts;
+
+    const { filters } = filterCtx;
+    let filtered = [...baseProducts];
+
+    // Filter by category
+    if (filters.categories.length > 0) {
+      filtered = filtered.filter((prod) =>
+        filters.categories.includes(prod.category.toLowerCase())
+      );
+    }
+
+    // Filter by price range
+    if (filters.minPrice) {
+      filtered = filtered.filter(
+        (prod) => Number(prod.price) >= Number(filters.minPrice)
+      );
+    }
+
+    if (filters.maxPrice) {
+      filtered = filtered.filter(
+        (prod) => Number(prod.price) <= Number(filters.maxPrice)
+      );
+    }
+
+    // Filter by rating
+    if (filters.rating.length > 0) {
+      filtered = filtered.filter((prod) => {
+        const rating = extractRating(prod);
+        const prodRating = sumRatings(rating as Reviews);
+        if (Number.isNaN(prodRating)) return false;
+        return filters.rating.includes(prodRating);
+      });
+    }
+
+    // Filter by search term
+    if (filters.searchTerm) {
+      filtered = filtered.filter((p) =>
+        [p.title, p.category, p.description].some((field) =>
+          field
+            ?.toLowerCase()
+            .includes(filters.searchTerm?.toLowerCase() as string)
+        )
+      );
+    }
+
+    return filtered;
+  }, [baseProducts, filterCtx]);
+
+  // Show loading if products haven't loaded yet
+  if (products.length === 0) {
     return (
       <MainContainer>
         <StyledProductsList>
@@ -148,16 +145,26 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
   return (
     <MainContainer $variant="secondary">
       <StyledProductsList>
-        <FlexBox>
+        <>
           <h1>{pageTitle}</h1>
-        </FlexBox>
-        {sortedProducts.length === 0 ? (
+          {filterCtx?.filters && (
+            <p>
+              Showing {filteredProducts.length} of {baseProducts.length}{" "}
+              products
+            </p>
+          )}
+        </>
+        {filteredProducts.length === 0 ? (
           <FlexBox>
-            <p>No products found for {`"${slug}"`}.</p>
+            <p>
+              {baseProducts.length === 0
+                ? `No products found for "${slug}".`
+                : "No products match your filters. Try adjusting your criteria."}
+            </p>
           </FlexBox>
         ) : (
           <ProductsGrid>
-            {sortedProducts.map((item) => (
+            {filteredProducts.map((item) => (
               <Card key={item.id} product={item} />
             ))}
           </ProductsGrid>

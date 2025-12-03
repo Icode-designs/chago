@@ -208,10 +208,6 @@ export const CustomerReviews = styled.section`
     width: ${pxTorem(3)};
   }
 
-  @media ${QUERY.TABLET} {
-    justify-content: center;
-  }
-
   article {
     display: grid;
     gap: ${pxTorem(16)};

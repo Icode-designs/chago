@@ -1,17 +1,16 @@
 "use client";
 import { ProductSection, ProductsGrid } from "@/styles/components/ui.Styles";
-import React, { useContext } from "react";
+import React from "react";
 import Card from "./Card";
-import { PRODUCTS_CONTEXT } from "@/providers/productsProvider";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const BestDeal = () => {
-  const productsCtx = useContext(PRODUCTS_CONTEXT);
+  const products = useSelector((state: RootState) => state.products.products);
 
-  if (!productsCtx) {
-    return;
+  if (!products) {
+    return null;
   }
-
-  const { products } = productsCtx;
 
   return (
     <ProductSection $variant={undefined}>

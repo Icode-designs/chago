@@ -6,6 +6,7 @@ import { ReactNode, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "@/lib/firebaseCl";
 import { onAuthStateChanged } from "firebase/auth";
+import _ from "lodash";
 
 export default function ClientWrapper({ children }: { children: ReactNode }) {
   const items = useSelector((state: RootState) => state.cart.items);
@@ -17,7 +18,6 @@ export default function ClientWrapper({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        // User logged out
         didFetchRef.current = false;
         currentUidRef.current = null;
         sessionStorage.removeItem("cartMerged");
@@ -25,11 +25,17 @@ export default function ClientWrapper({ children }: { children: ReactNode }) {
       }
 
       currentUidRef.current = user.uid;
+
       const remoteCart = await fetchCart(user.uid);
+
+      // If carts are exactly the same, do nothing
+      if (_.isEqual(remoteCart, items)) {
+        didFetchRef.current = true;
+        return;
+      }
 
       // Check if we've already merged for this session
       const hasMerged = sessionStorage.getItem("cartMerged") === "true";
-      if (remoteCart === items) return;
 
       if (!hasMerged) {
         dispatch(mergeCart(remoteCart));
@@ -49,6 +55,7 @@ export default function ClientWrapper({ children }: { children: ReactNode }) {
     const uid = currentUidRef.current;
     if (!uid) return;
     if (!didFetchRef.current) return;
+
     saveCart(uid, items);
   }, [items]);
 

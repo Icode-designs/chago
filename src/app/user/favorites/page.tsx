@@ -16,11 +16,14 @@ const Page = () => {
   );
   return (
     <UserContent>
-      <ProductsGrid>
-        {favorites?.map((item, i) => (
-          <Card key={i} product={item} />
-        ))}
-      </ProductsGrid>
+      {favorites.length <= 0 && <h3>You have no favorites</h3>}
+      {favorites.length >= 1 && (
+        <ProductsGrid>
+          {favorites?.map((item, i) => (
+            <Card key={i} product={item} />
+          ))}
+        </ProductsGrid>
+      )}
     </UserContent>
   );
 };

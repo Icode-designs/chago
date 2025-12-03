@@ -6,6 +6,7 @@ import { RootState } from "@/store/store";
 import { StyledProductsList } from "@/styles/components/productsList";
 import {
   FlexBox,
+  LoaderBox,
   MainContainer,
   ProductsGrid,
 } from "@/styles/components/ui.Styles";
@@ -134,9 +135,9 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
     return (
       <MainContainer>
         <StyledProductsList>
-          <FlexBox>
+          <LoaderBox>
             <h1>Loading products...</h1>
-          </FlexBox>
+          </LoaderBox>
         </StyledProductsList>
       </MainContainer>
     );

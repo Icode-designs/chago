@@ -104,6 +104,7 @@ export const UserContainer = styled.main`
 
 export const UserContent = styled.div`
   width: 100%;
+  position: relative;
   padding: ${pxTorem(40)} ${pxTorem(24)} ${pxTorem(90)};
   display: flex;
   justify-content: center;

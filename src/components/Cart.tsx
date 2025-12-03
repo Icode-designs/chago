@@ -16,7 +16,7 @@ const Cart = () => {
         <div className="amount">
           <p>{totalQty}</p>
         </div>
-        <IoCartOutline size={24} color="var(--col-000)" />
+        <IoCartOutline />
       </CartContainer>
     </Link>
   );

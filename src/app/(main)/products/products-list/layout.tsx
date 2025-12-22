@@ -1,5 +1,5 @@
 "use client";
-import Filter from "@/components/Filter";
+import Filter from "@/components/filter";
 import React, { ReactNode } from "react";
 
 interface PROPS {

@@ -1,6 +1,6 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import MobileNav from "@/components/MobileNav";
+import Footer from "@/components/footer";
+import Header from "@/components/customHeader";
+import MobileNav from "@/components/mobileNav";
 import { fetchProducts } from "@/utils/fetchAllProducts";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

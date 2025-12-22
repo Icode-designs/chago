@@ -1,5 +1,5 @@
 import React from "react";
-import { ReviewData } from "./UserReview";
+import { ReviewData } from "./userReview";
 import { CustomerReviews } from "@/styles/components/productDetails";
 import { numberToStars } from "@/utils/ratings";
 import { FlexBox } from "@/styles/components/ui.Styles";

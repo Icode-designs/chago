@@ -11,7 +11,7 @@ import { logoutUser } from "@/utils/auth";
 import { clearCart } from "@/store/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import NavLink from "./UserNavlink";
+import NavLink from "./userNavlink";
 
 const UserSidebar = () => {
   const router = useRouter();

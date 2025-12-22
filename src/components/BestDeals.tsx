@@ -1,7 +1,7 @@
 "use client";
 import { ProductSection, ProductsGrid } from "@/styles/components/ui.Styles";
 import React from "react";
-import Card from "./Card";
+import Card from "./card";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 

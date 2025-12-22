@@ -1,4 +1,4 @@
-import CheckoutForm from "@/components/CheckoutForm";
+import CheckoutForm from "@/components/checkoutForm";
 import { StyledCheckout } from "@/styles/components/checkout.styles";
 import { MainContainer } from "@/styles/components/ui.Styles";
 import React from "react";

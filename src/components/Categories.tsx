@@ -1,7 +1,7 @@
 import { ProductSection, ProductsGrid } from "@/styles/components/ui.Styles";
 import { CATEGORIES } from "@/utils/imageImport";
 import React from "react";
-import Card from "./Card";
+import Card from "./card";
 import Link from "next/link";
 import Image from "next/image";
 

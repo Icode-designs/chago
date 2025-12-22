@@ -1,6 +1,6 @@
-import Header from "@/components/Header";
-import MobileNav from "@/components/MobileNav";
-import UserLayoutWrapper from "@/components/UserLayoutWrapper";
+import Header from "@/components/customHeader";
+import MobileNav from "@/components/mobileNav";
+import UserLayoutWrapper from "@/components/userLayoutWrapper";
 import { UserContentContainer } from "@/styles/components/User.styles";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

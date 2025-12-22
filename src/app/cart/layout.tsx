@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
-import MobileNav from "@/components/MobileNav";
+import Header from "@/components/customHeader";
+import MobileNav from "@/components/mobileNav";
 
 export default async function cartLayout({
   children,

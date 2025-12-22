@@ -1,8 +1,8 @@
 "use client";
-import BestDeal from "@/components/BestDeals";
-import Categories from "@/components/Categories";
-import FlashSale from "@/components/FlashSale";
-import HomePageHero from "@/components/HomePageHero";
+import BestDeal from "@/components/bestDeals";
+import Categories from "@/components/categories";
+import FlashSale from "@/components/flashSale";
+import HomePageHero from "@/components/homePageHero";
 import { MainContainer } from "@/styles/components/ui.Styles";
 
 export default function Home() {

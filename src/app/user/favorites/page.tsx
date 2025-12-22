@@ -1,5 +1,5 @@
 "use client";
-import Card from "@/components/Card";
+import Card from "@/components/card";
 import { RootState } from "@/store/store";
 import { ProductsGrid } from "@/styles/components/ui.Styles";
 import { UserContent } from "@/styles/components/User.styles";

@@ -5,7 +5,7 @@ import { GrHomeRounded } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { FaStore } from "react-icons/fa";
 
-import Cart from "./Cart";
+import Cart from "./cart";
 import { CiHome, CiShop, CiUser } from "react-icons/ci";
 
 const MobileNav = () => {

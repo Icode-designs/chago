@@ -77,6 +77,7 @@ export const signInWithGoogle = async () => {
 
     if (!exists) {
       const userData: CreateUserData = {
+        firstName: user.displayName?.split("").toString(),
         email: user.email!,
         displayName: user.displayName || undefined,
         role: "customer",

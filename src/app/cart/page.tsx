@@ -1,7 +1,7 @@
 "use client";
 "@/store/store";
-import CartItemList from "@/components/CartItemList";
-import OrderSummary from "@/components/OrderSummary";
+import CartItemList from "@/components/cartItemList";
+import OrderSummary from "@/components/orderSummary";
 import { CartItem } from "@/store/slices/cartSlice";
 import { RootState } from "@/store/store";
 import { StyledCartWrapper } from "@/styles/components/cart.styles";

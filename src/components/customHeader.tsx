@@ -11,11 +11,11 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 import { FaAngleDown } from "react-icons/fa6";
 import { useCallback, useContext, useRef, useState, useEffect } from "react";
-import Logo from "./Logo";
+import Logo from "./logo";
 import useMediaQuery from "@/hooks/useMedia";
 import PRODUCT from "@/types/productsType";
 import { FILTER_CONTEXT } from "@/providers/filterProvider";
-import Cart from "./Cart";
+import Cart from "./cart";
 import { CATEGORIES } from "@/utils/imageImport";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";

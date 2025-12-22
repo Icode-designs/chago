@@ -1,6 +1,6 @@
 import { Order } from "@/utils/orderHelpers";
 import React from "react";
-import OrderItemCard from "./OrderItemCard";
+import OrderItemCard from "./orderItemCard";
 import { UserOrderList } from "@/styles/components/User.styles";
 import { GridColumn } from "@/styles/components/ui.Styles";
 

@@ -1,9 +1,9 @@
 "use client";
-import ProductDetails from "@/components/ProductDetails";
-import ProductOverview from "@/components/ProductOverview";
-import ProductReviews from "@/components/ProductReviews";
-import RelatedProducts from "@/components/RelatedProducts";
-import UserReview, { ReviewData } from "@/components/UserReview";
+import ProductDetails from "@/components/productDetails";
+import ProductOverview from "@/components/productOverview";
+import ProductReviews from "@/components/productReviews";
+import RelatedProducts from "@/components/relatedProducts";
+import UserReview, { ReviewData } from "@/components/userReview";
 import { LoaderBox, MainContainer } from "@/styles/components/ui.Styles";
 import Product from "@/types/productsType";
 import { useSelector } from "react-redux";

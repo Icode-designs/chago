@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import UserSidebar from "./UserSidebar";
+import UserSidebar from "./userSidebar";
 import { NavContextProvider } from "@/providers/NavProvider";
 import { UserContainer } from "@/styles/components/User.styles";
 

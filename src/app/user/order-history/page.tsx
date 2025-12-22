@@ -1,5 +1,5 @@
 "use client";
-import OrderDisplay from "@/components/OrderDisplay";
+import OrderDisplay from "@/components/orderDisplay";
 import { useOrders } from "@/hooks/useOrders";
 import { GridColumn, LoaderBox } from "@/styles/components/ui.Styles";
 import { UserContent } from "@/styles/components/User.styles";

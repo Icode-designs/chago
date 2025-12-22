@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "@/components/Card";
+import Card from "@/components/card";
 import { FILTER_CONTEXT } from "@/providers/filterProvider";
 import { RootState } from "@/store/store";
 import { StyledProductsList } from "@/styles/components/productsList";

@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import OrderSummary from "@/components/OrderSummary";
+import OrderSummary from "@/components/orderSummary";
 import {
   StyledCheckoutField,
   StyledFieldGrid,

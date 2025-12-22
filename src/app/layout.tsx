@@ -3,7 +3,7 @@ import { Italianno, Poppins } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
 import GlobalStyle from "@/styles/global.styles";
 import Providers from "@/providers/ReduxProvider";
-import ClientWrapper from "@/components/CartSyncWrapper";
+import ClientWrapper from "@/components/cartSyncWrapper";
 import Script from "next/script";
 
 const italianno = Italianno({

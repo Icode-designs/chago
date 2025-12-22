@@ -7,7 +7,7 @@ import {
   TabButton,
 } from "@/styles/components/productDetails";
 import { FlexBox } from "@/styles/components/ui.Styles";
-import ProductRating from "./ProductRating";
+import ProductRating from "./productRating";
 import Product from "@/types/productsType";
 
 interface Props {

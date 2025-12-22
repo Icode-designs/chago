@@ -1,8 +1,8 @@
 "use client";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import MobileNav from "@/components/MobileNav";
-import NewsLetter from "@/components/NewsLetter";
+import Header from "@/components/customHeader";
+import Footer from "@/components/footer";
+import MobileNav from "@/components/mobileNav";
+import NewsLetter from "@/components/newsLetter";
 import FilterContextProvider from "@/providers/filterProvider";
 import useFetchProducts from "@/hooks/useFetchProducts";
 import { LoaderBox } from "@/styles/components/ui.Styles";

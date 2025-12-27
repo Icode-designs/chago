@@ -3,22 +3,21 @@ import { FaPowerOff } from "react-icons/fa6";
 import useMediaQuery from "@/hooks/useMedia";
 import { NAV_CONTEXT } from "@/providers/NavProvider";
 import { FlexBox } from "@/styles/components/ui.Styles";
-import { LinksList, StyledSideBar } from "@/styles/components/User.styles";
+import { NavigationBox, StyledSideBar } from "@/styles/components/User.styles";
 import React, { useContext, useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { handleLogoutAction } from "@/app/user/actions";
 import { logoutUser } from "@/utils/auth";
-import { clearCart } from "@/store/slices/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/store/store";
 import NavLink from "./userNavlink";
 
 const UserSidebar = () => {
   const router = useRouter();
-
-  const dispatch = useDispatch();
   const navCtx = useContext(NAV_CONTEXT);
   const isLargeScreen = useMediaQuery(1200);
+  const user = useSelector((state: RootState) => state.user.currentUser);
 
   useEffect(() => {
     if (!navCtx) return;
@@ -39,11 +38,8 @@ const UserSidebar = () => {
       // Log out from Firebase
       await logoutUser();
 
-      // Clear cart state
-      dispatch(clearCart());
-
       // Redirect to home
-      router.push("/");
+      router.push("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -54,26 +50,22 @@ const UserSidebar = () => {
       <button onClick={toggleNav}>
         {navOpen ? <FaAngleRight /> : <FaAngleLeft />}
       </button>
+      <div>
+        <h3>Welcome user {user?.firstName}</h3>
+      </div>
+      <NavigationBox $show={navOpen}>
+        <NavLink href="/user/edit-profile">Edit Profile</NavLink>
 
-      <LinksList $show={navOpen}>
-        <li>
-          <NavLink href="/user/profile">Profile</NavLink>
-        </li>
+        <NavLink href="/user/order-history">Order History</NavLink>
 
-        <li>
-          <NavLink href="/user/order-history">Order History</NavLink>
-        </li>
-        <li>
-          <NavLink href="/user/favorites">Favorites</NavLink>
-        </li>
-
-        <button onClick={handleLogout}>
-          <FlexBox $gap={8}>
-            <FaPowerOff />
-            <h3>Logout</h3>
-          </FlexBox>
-        </button>
-      </LinksList>
+        <NavLink href="/user/favorites">Favorites</NavLink>
+      </NavigationBox>
+      <button onClick={handleLogout}>
+        <FlexBox $gap={8}>
+          <FaPowerOff />
+          <h3>Logout</h3>
+        </FlexBox>
+      </button>
     </StyledSideBar>
   );
 };

@@ -2,7 +2,7 @@
 import Card from "@/components/card";
 import { RootState } from "@/store/store";
 import { ProductsGrid } from "@/styles/components/ui.Styles";
-import { UserContent } from "@/styles/components/User.styles";
+import { UserContent } from "@/styles/components/user.styles";
 import React from "react";
 import { useSelector } from "react-redux";
 

@@ -2,7 +2,7 @@
 import OrderDisplay from "@/components/orderDisplay";
 import { useOrders } from "@/hooks/useOrders";
 import { GridColumn, LoaderBox } from "@/styles/components/ui.Styles";
-import { UserContent } from "@/styles/components/User.styles";
+import { UserContent } from "@/styles/components/user.styles";
 import React from "react";
 
 const Page = () => {

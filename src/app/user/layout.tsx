@@ -1,7 +1,7 @@
 import Header from "@/components/customHeader";
 import MobileNav from "@/components/mobileNav";
 import UserLayoutWrapper from "@/components/userLayoutWrapper";
-import { UserContentContainer } from "@/styles/components/User.styles";
+import { UserContentContainer } from "@/styles/components/user.styles";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -18,7 +18,6 @@ export default async function UserLayout({
   }
   return (
     <>
-      <Header />
       <UserLayoutWrapper>
         <UserContentContainer>{children}</UserContentContainer>
       </UserLayoutWrapper>

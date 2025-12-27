@@ -1,6 +1,6 @@
 import { CartItem } from "@/store/slices/cartSlice";
 import { FlexBox } from "@/styles/components/ui.Styles";
-import { StyledOrderCard } from "@/styles/components/User.styles";
+import { StyledOrderCard } from "@/styles/components/user.styles";
 import formatToNaira from "@/utils/formatPrice";
 import { OrderItem } from "@/utils/orderHelpers";
 import { trimText } from "@/utils/trimText";

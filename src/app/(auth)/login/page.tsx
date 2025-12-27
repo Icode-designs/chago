@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/components/logo";
+import Logo from "@/components/Logo";
 import { getUserDocument } from "@/lib/services/userService";
 import { setUser } from "@/store/slices/userSlice";
 import { AppDispatch } from "@/store/store";

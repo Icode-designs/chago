@@ -15,7 +15,7 @@ import { getUserDocument } from "@/lib/services/userService";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { setUser } from "@/store/slices/userSlice";
-import Logo from "@/components/logo";
+import Logo from "@/components/Logo";
 
 interface ERRORTYPE {
   emailErr?: string;

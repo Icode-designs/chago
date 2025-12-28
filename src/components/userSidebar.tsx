@@ -3,7 +3,7 @@ import { FaPowerOff } from "react-icons/fa6";
 import useMediaQuery from "@/hooks/useMedia";
 import { NAV_CONTEXT } from "@/providers/NavProvider";
 import { FlexBox } from "@/styles/components/ui.Styles";
-import { NavigationBox, StyledSideBar } from "@/styles/components/User.styles";
+import { NavigationBox, StyledSideBar } from "@/styles/components/user.styles";
 import React, { useContext, useEffect } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { handleLogoutAction } from "@/app/user/actions";

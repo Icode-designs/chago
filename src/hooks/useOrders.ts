@@ -1,4 +1,4 @@
-import { fetchOrder } from "@/lib/services/OrderService";
+import { fetchOrder } from "@/lib/services/orderService";
 import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

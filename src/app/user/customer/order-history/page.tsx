@@ -24,7 +24,7 @@ const Page = () => {
       </UserContent>
     );
   return (
-    <UserContent>
+    <>
       {orders.length <= 0 && <h3>You havent placed an order yet</h3>}
       {orders.length >= 1 && (
         <GridColumn $gap={50}>
@@ -35,7 +35,7 @@ const Page = () => {
             ))}
         </GridColumn>
       )}
-    </UserContent>
+    </>
   );
 };
 

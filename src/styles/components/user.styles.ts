@@ -7,19 +7,19 @@ export const StyledSideBar = styled.div<{ $navOpen: boolean }>`
   position: fixed;
   background-color: var(--col-000);
   height: ${({ $navOpen }) => ($navOpen ? pxTorem(320) : pxTorem(55))};
-  width: ${({ $navOpen }) => ($navOpen ? pxTorem(250) : pxTorem(40))};
-  margin-top: ${pxTorem(24)};
+  width: ${({ $navOpen }) => ($navOpen ? pxTorem(250) : pxTorem(50))};
   display: grid;
   padding: ${({ $navOpen }) => ($navOpen ? pxTorem(8) : pxTorem(16))};
   right: 0;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   border-radius: ${pxTorem(24)} 0 0 ${pxTorem(24)};
   transition: all ease 0.5s;
 
   > button:nth-of-type(1) {
     align-self: start;
     justify-self: start;
+    display: flex;
     ${({ $navOpen }) =>
       $navOpen
         ? undefined
@@ -57,19 +57,21 @@ export const StyledSideBar = styled.div<{ $navOpen: boolean }>`
     justify-content: start;
     top: 0;
     left: 0;
-    width: ${pxTorem(350)};
+    bottom: 0;
+    width: ${pxTorem(400)};
     height: 100vh;
     overflow-y: auto;
     border-radius: 0;
     margin: 0;
     > div {
-      display: block;
+      display: grid;
       padding: ${pxTorem(15)};
       border-bottom: solid ${pxTorem(1)} grey;
-      height: fit-content;
+      height: ${pxTorem(96)};
       h3 {
-        font-size: ${pxTorem(13)};
+        font-size: ${pxTorem(16)};
         color: var(--col-100);
+        align-self: end;
       }
     }
 
@@ -92,9 +94,28 @@ export const StyledSideBar = styled.div<{ $navOpen: boolean }>`
 
 export const UserOrderList = styled.ol`
   display: grid;
+  background-color: var(--col-100);
   grid-template-columns: 1fr;
-  gap: ${pxTorem(16)};
+  padding: 0 0 ${pxTorem(24)};
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  gap: ${pxTorem(24)};
   width: 100%;
+  max-width: var(--max-width);
+  justify-self: center;
+
+  > div:nth-of-type(1) {
+    background-color: var(--col-400);
+    padding: ${pxTorem(16)};
+    border-top-right-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
+    color: var(--col-100);
+    gap: ${pxTorem(8)};
+    @media ${QUERY.DESKTOP} {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 `;
 
 export const NavigationBox = styled.nav<{ $show: boolean }>`
@@ -134,7 +155,7 @@ export const NavigationBox = styled.nav<{ $show: boolean }>`
     &.active {
       border-radius: var(--border-radius);
       background-color: var(--col-200-light);
-      color: var(--col-200);
+      color: var(--col-400);
       width: 100%;
     }
   }
@@ -146,34 +167,77 @@ export const NavigationBox = styled.nav<{ $show: boolean }>`
   }
 `;
 
-export const UserContainer = styled.main`
-  position: relative;
-  display: flex;
-  gap: 0;
-  max-height: 100vh;
-  overflow-y: auto;
-  width: 100%;
-`;
-
 export const UserContent = styled.div`
+  margin-top: ${pxTorem(50)};
   position: relative;
   width: 100%;
-  padding: ${pxTorem(40)} ${pxTorem(24)};
-  display: grid;
-  gap: ${pxTorem(40)};
-  justify-items: center;
+  height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  > * {
+    padding: ${pxTorem(40)} ${pxTorem(16)} ${pxTorem(100)};
+    width: 100%;
+  }
+
+  > h3 {
+    text-align: center;
+  }
 
   @media ${QUERY.DESKTOP} {
+    margin-top: ${pxTorem(96)};
     padding: ${pxTorem(40)};
   }
 `;
 
-export const UserContentContainer = styled.section`
+export const UserContentContainer = styled.main<{ $navopen: boolean }>`
+  display: flex;
+  position: relative;
   width: 100%;
   overflow-y: auto;
   scroll-behavior: smooth;
   align-content: start;
+  section {
+    &:nth-of-type(1) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: fit-content;
 
+      @media ${QUERY.DESKTOP} {
+        position: static;
+        width: ${pxTorem(400)};
+      }
+    }
+
+    &:nth-of-type(2) {
+      overflow-y: hidden;
+      width: 100%;
+      height: 100vh;
+      overflow-y: hidden;
+      form {
+        margin-top: ${pxTorem(24)};
+        width: 100%;
+        max-width: var(--max-width);
+      }
+
+      header {
+        position: fixed;
+        width: 100%;
+        padding: ${pxTorem(3)};
+        height: fit-content;
+        background-color: var(--col-100);
+        z-index: 99;
+
+        @media ${QUERY.DESKTOP} {
+          padding: ${pxTorem(8)};
+        }
+      }
+    }
+  }
   &::-webkit-scrollbar {
     width: 0;
     display: none;
@@ -224,9 +288,9 @@ export const StyledOrderCard = styled.li`
   grid-template-areas: "id title title" "price qty status";
   background-color: var(--col-100);
   border-radius: var(--border-radius);
-  padding: ${pxTorem(18)};
+  padding: 0 ${pxTorem(16)};
   width: 100%;
-  gap: ${pxTorem(24)};
+  gap: ${pxTorem(8)};
 
   h3 {
     grid-area: id;
@@ -503,4 +567,12 @@ export const ChartTitle = styled.h3`
   color: var(--col-000);
   margin: 0 0 ${pxTorem(16)} 0;
   text-align: center;
+`;
+
+export const BackBtn = styled.button`
+  color: var(--col-000);
+  display: flex;
+  gap: ${pxTorem(5)};
+  align-items: center;
+  padding: 0;
 `;

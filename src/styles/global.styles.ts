@@ -17,14 +17,14 @@ const GlobalStyle = createGlobalStyle`
   --col-000: #000000;
   --col-100: #ffffff;
   --col-200: #6A00FF;
-  --col-200-light: #6A00FFe1;
+  --col-200-light: #b47effe1;
   --col-300: #FF2828;
   --col-400: #0099ffff;
   --body-bg: #FFF0F0;
 
     // Others
   --border-radius: ${pxTorem(12)};
-  --shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  --shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
   --max-width: ${pxTorem(1200)};
   --centered: 0 auto;
 }
@@ -67,7 +67,7 @@ h1{
     line-height: 1.2;
     text-transform: capitalize;
 }
-h2{
+h2, legend{
     font-size: clamp(${pxTorem(24)},${pxTorem(28)},${pxTorem(32)});
     font-weight: var(--bold);
     line-height: 1.3;
@@ -85,7 +85,33 @@ p, li{
     line-height: 1.4;
 }
 
-input, textarea {
+.status {
+    padding: ${pxTorem(15)};
+    border-radius: var(--border-radius);
+  }
+
+.pending {
+      background-color: #ffbe86ff;
+      color: orange;
+    }
+
+.transit {
+      background-color: #87cefa;
+      color: #00b7ffff;
+    }
+
+.recieved, .accepted {
+      background-color: #90ee90;
+      color: #00ff00;
+    }
+.canceled, .rejected {
+      background-color: #ff4c4cff;
+      color: var(--col-300);
+    }
+
+
+input, textarea, select {
+  display: block;
     border-radius: var(--border-radius);
     padding: ${pxTorem(16)} ${pxTorem(8)} ;
     width: 100%;
@@ -95,15 +121,26 @@ input, textarea {
       width: fit-content;
       border-radius: var(--border-radius);
     }
+    &[type='file']{
+      display: none;
+    }
+
   }
   input:focus {
     border-color: var(--col-400);
     outline: none;
   }
 
+  input:read-only{
+    cursor: not-allowed;
+    &:hover{
+      cursor: not-allowed;
+    }
+  }
+
    form {
     display: grid;
-    /* max-width: ${pxTorem(800)}; */
+    max-width: ${pxTorem(1024)};
     width: 100%;
     border-radius: var(--border-radius);
     gap: ${pxTorem(32)};
@@ -111,16 +148,10 @@ input, textarea {
     box-lines: ${pxTorem(6)} ${pxTorem(6)} ${pxTorem(10)} rgba(0, 0, 0, 0.1);
     padding: ${pxTorem(40)} ${pxTorem(16)};
 
-    >div{
-      &:nth-of-type(1){
-        text-align: center;
-      }
-    }
-
     div {
       position: relative;
       width: 100%;
-
+     
       .password {
         padding-right: ${pxTorem(50)};
       }
@@ -146,6 +177,10 @@ input, textarea {
       border: none;
       display: grid;
       gap: ${pxTorem(24)};
+      legend{
+        text-align: center;
+        margin-bottom: ${pxTorem(16)};
+      }
     }
 
     .seperator {
@@ -187,8 +222,7 @@ input, textarea {
     }
 
     > div {
-      text-align: left;
-   
+      text-align: center;
       h1 {
         margin-bottom: ${pxTorem(16)};
       }

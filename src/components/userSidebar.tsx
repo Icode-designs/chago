@@ -3,17 +3,27 @@ import { FaPowerOff } from "react-icons/fa6";
 import useMediaQuery from "@/hooks/useMedia";
 import { NAV_CONTEXT } from "@/providers/NavProvider";
 import { FlexBox } from "@/styles/components/ui.Styles";
-import { NavigationBox, StyledSideBar } from "@/styles/components/user.styles";
+import {
+  BackBtn,
+  NavigationBox,
+  StyledSideBar,
+} from "@/styles/components/user.styles";
 import React, { useContext, useEffect } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaBars } from "react-icons/fa";
 import { handleLogoutAction } from "@/app/user/actions";
 import { logoutUser } from "@/utils/auth";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/store/store";
-import NavLink from "./userNavlink";
+import { IoClose } from "react-icons/io5";
 
-const UserSidebar = () => {
+const UserSidebar = ({
+  children,
+  navOpen,
+}: {
+  children: React.ReactNode;
+  navOpen: boolean;
+}) => {
   const router = useRouter();
   const navCtx = useContext(NAV_CONTEXT);
   const isLargeScreen = useMediaQuery(1200);
@@ -28,7 +38,7 @@ const UserSidebar = () => {
 
   if (!navCtx) return null;
 
-  const { toggleNav, navOpen } = navCtx;
+  const { toggleNav } = navCtx;
 
   async function handleLogout() {
     try {
@@ -48,18 +58,23 @@ const UserSidebar = () => {
   return (
     <StyledSideBar $navOpen={navOpen}>
       <button onClick={toggleNav}>
-        {navOpen ? <FaAngleRight /> : <FaAngleLeft />}
+        {navOpen ? (
+          <>
+            {" "}
+            <IoClose />
+          </>
+        ) : (
+          <FaBars />
+        )}
       </button>
       <div>
-        <h3>Welcome user {user?.firstName}</h3>
+        <h3>
+          Welcome {user?.role} {user?.firstName}
+        </h3>
       </div>
-      <NavigationBox $show={navOpen}>
-        <NavLink href="/user/edit-profile">Edit Profile</NavLink>
 
-        <NavLink href="/user/order-history">Order History</NavLink>
+      <NavigationBox $show={navOpen}>{children}</NavigationBox>
 
-        <NavLink href="/user/favorites">Favorites</NavLink>
-      </NavigationBox>
       <button onClick={handleLogout}>
         <FlexBox $gap={8}>
           <FaPowerOff />

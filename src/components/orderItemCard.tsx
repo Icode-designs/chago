@@ -1,5 +1,3 @@
-import { CartItem } from "@/store/slices/cartSlice";
-import { FlexBox } from "@/styles/components/ui.Styles";
 import { StyledOrderCard } from "@/styles/components/user.styles";
 import formatToNaira from "@/utils/formatPrice";
 import { OrderItem } from "@/utils/orderHelpers";
@@ -27,7 +25,9 @@ const OrderItemCard = ({ item }: Props) => {
       <p>X{item.quantity}</p>
       <div className={`status ${statusClassMap[item.status] || "unknown"}`}>
         <GoDotFill />
-        <p>{item.status}</p>
+        <div className={`status ${item.status}`}>
+          <p>{item.status}</p>
+        </div>
       </div>
     </StyledOrderCard>
   );

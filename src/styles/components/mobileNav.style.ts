@@ -9,7 +9,7 @@ export const StyledMobileNav = styled.nav`
   left: 0;
   width: 100%;
   padding: ${pxTorem(16)};
-  background-color: var(--col-100);
+  background-color: var(--col-000);
   ul {
     display: flex;
     justify-content: space-between;
@@ -23,6 +23,7 @@ export const StyledMobileNav = styled.nav`
 
         svg {
           font-size: ${pxTorem(35)};
+          color: var(--col-100);
         }
       }
     }

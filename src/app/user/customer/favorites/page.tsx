@@ -15,7 +15,7 @@ const Page = () => {
     user?.favorites?.includes(product.id as string)
   );
   return (
-    <UserContent>
+    <>
       {favorites.length <= 0 && <h3>You have no favorites</h3>}
       {favorites.length >= 1 && (
         <ProductsGrid>
@@ -24,7 +24,7 @@ const Page = () => {
           ))}
         </ProductsGrid>
       )}
-    </UserContent>
+    </>
   );
 };
 

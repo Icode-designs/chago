@@ -219,7 +219,6 @@ export const UserContentContainer = styled.main<{ $navopen: boolean }>`
       height: 100vh;
       overflow-y: hidden;
       form {
-        margin-top: ${pxTorem(24)};
         width: 100%;
         max-width: var(--max-width);
       }
@@ -575,4 +574,5 @@ export const BackBtn = styled.button`
   gap: ${pxTorem(5)};
   align-items: center;
   padding: 0;
+  margin-bottom: ${pxTorem(24)};
 `;
